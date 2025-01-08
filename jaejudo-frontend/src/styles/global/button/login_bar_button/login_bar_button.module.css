@@ -1,0 +1,30 @@
+/* 탭 스타일 */
+.tabContainer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.tabButton {
+  flex: 1;
+  padding: 10px 20px;
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: #2d3748;
+  font-size: 1rem;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.tabButton:hover {
+  color: #1a202c;
+}
+
+.activeTab {
+  color: #2b6cb0;
+  border-bottom: 2px solid #2b6cb0;
+  font-weight: bold;
+}

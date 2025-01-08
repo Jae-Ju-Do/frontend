@@ -1,0 +1,34 @@
+/* 전체 컨테이너 스타일 */
+.container {
+  background-color: #eff6ff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, sans-serif;
+}
+
+/* 폼 스타일 */
+.form {
+  width: 100%;
+  max-width: 360px;
+  background-color: #ffffff;
+  padding: 2rem;
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* 버튼 스타일 */
+.button {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #2b6cb0;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}

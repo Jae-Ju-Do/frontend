@@ -1,0 +1,84 @@
+/* 전체 컨테이너 스타일 */
+.container {
+  background-color: #eff6ff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, sans-serif;
+}
+
+/* 헤더 스타일 */
+.header {
+  background-color: #eff6ff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding-top: 8rem;
+  padding-bottom: 2rem;
+  font-family: Arial, sans-serif;
+}
+
+/* 폼 스타일 */
+.form {
+  width: 100%;
+  max-width: 360px;
+  background-color: #ffffff;
+  padding: 2rem;
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* 입력 필드 스타일 */
+.input {
+  width: 100%;
+  padding: 0.75rem;
+  box-sizing: border-box;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: border-color 0.2s ease-in-out;
+  margin-bottom: 1.5rem;
+}
+
+.input:focus {
+  border-color: #3182ce;
+}
+
+/* 버튼 스타일 */
+.button {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #2b6cb0;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.passwordContainer {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.eyeButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
+  top: 35%;
+  transform: translateY(-50%);
+  font-size: 1.2rem;
+  color: #718096;
+}
+
+.eyeButton:hover {
+  color: #2b6cb0;
+}

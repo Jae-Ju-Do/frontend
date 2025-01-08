@@ -1,0 +1,12 @@
+/* 링크 스타일 */
+.links {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+/* 줄바꿈 스타일 */
+.separator {
+  color: #cbd5e0;
+  font-size: 0.9rem;
+}

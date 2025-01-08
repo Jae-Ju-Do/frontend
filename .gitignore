@@ -1,0 +1,7 @@
+# 파일 
+/.env
+/jaejudo-frontend/next-env.d.ts
+
+# 디렉토리
+/jaejudo-frontend/node_modules
+/jaejudo-frontend/.next

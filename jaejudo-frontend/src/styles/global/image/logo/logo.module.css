@@ -1,0 +1,11 @@
+/* 헤더 스타일 */
+.header {
+  background-color: #eff6ff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding-top: 8rem;
+  padding-bottom: 2rem;
+  font-family: Arial, sans-serif;
+}
