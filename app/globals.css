@@ -1,0 +1,61 @@
+
+/* 기본 = 다크 */
+:root,
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg-0: #0d1117;
+  --bg-1: #0a0f16;
+  --page-bg: radial-gradient(1100px circle at 20% -10%, rgba(58,118,230,.12), transparent 40%),
+             linear-gradient(180deg, var(--bg-0), var(--bg-1));
+
+  --header-bg: linear-gradient(180deg, rgba(14,15,19,.85), rgba(14,15,19,.65));
+
+  --surface-1: rgba(255,255,255,0.05);
+  --surface-2: rgba(255,255,255,0.08);
+  --border-1: rgba(255,255,255,0.08);
+
+  --text-100: #e5e7eb;
+  --muted-300: #cbd5e1;
+  --accent-600: #2563eb;
+  --accent-500: #1d4ed8;
+
+  --scrim: rgba(0, 0, 0, 0.72);
+  --modal-bg: #0f141b;  
+}
+
+/* 라이트 */
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg-0: #ffffff;
+  --bg-1: #f8fafc;
+  --page-bg: radial-gradient(900px circle at 20% -10%, rgba(37,99,235,.08), transparent 35%),
+             linear-gradient(180deg, var(--bg-0), var(--bg-1));
+
+  --header-bg: linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.78));
+
+  --surface-1: #f3f6fb;
+  --surface-2: #ffffff;
+  --border-1: rgba(0,0,0,0.08);
+
+  --text-100: #111827;
+  --muted-300: #374151;
+  --accent-600: #2563eb;
+  --accent-500: #1d4ed8;
+
+  --scrim: rgba(0, 0, 0, 0.60);
+  --modal-bg: #ffffff;
+}
+
+/* 페이지 전체 배경/텍스트 */
+html, body {
+  background: var(--page-bg);
+  color: var(--text-100);
+  scrollbar-gutter: stable both-edges;
+  transition: background .2s ease, color .2s ease;
+}
+
+/* Focus ring */
+:focus-visible {
+  outline: 2px solid var(--accent-500);
+  outline-offset: 2px;
+}

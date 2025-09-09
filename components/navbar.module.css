@@ -1,0 +1,83 @@
+/* 페이지의 헤더 네이게이터  */
+.header {
+  position: sticky;
+  top: 0;
+  backdrop-filter: blur(8px);
+  background: var(--header-bg);
+  z-index: 10;
+  border-bottom: 1px solid var(--border-1);
+}
+
+
+.nav {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 10px 16px;
+  display: grid;
+  grid-template-columns: auto minmax(420px, 1fr) auto;
+  align-items: center;
+}
+
+.brand {
+  justify-self: start;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.tabs a { 
+  text-decoration: none; 
+}
+
+.tabs {
+  justify-self: stretch;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding-inline: clamp(8px, 2vw, 32px);
+}
+
+.navtab {
+  color: var(--muted-300);
+  font-weight: 600;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  transition: color .2s ease, background .2s ease, border-color .2s ease;
+}
+
+.navtab:hover, .navtab:focus-visible {
+  background: #eef2f7;
+  color: #111827;
+  border-color: #e5e7eb;
+}
+
+.activeTab {
+  color: #2563eb;
+  background: rgba(37,99,235,.12);
+  border-color: rgba(37,99,235,.25);
+}
+
+
+/* 로그인, 회원가입 버튼 */
+.btnSignin, .btnSignup {
+  text-decoration: none; 
+  font-weight: 700;
+  padding: 8px 12px; 
+  border-radius: 10px; 
+  border: 1px solid transparent;
+}
+
+.btnSignin {
+  color: var(--text-100);
+  background: var(--surface-1);
+  border-color: var(--border-1);
+}
+.btnSignin:hover { opacity: .9; }
+
+.btnSignup {
+  color: #fff;
+  background: var(--accent-600);
+  border-color: var(--accent-500);
+}
+.btnSignup:hover { opacity: .95; }

@@ -1,0 +1,119 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.modal {
+  background: var(--modal-bg, #fff);
+  color: var(--text-100, #111);
+  border-radius: 12px;
+  border: 1px solid var(--border-1, #d1d5db);
+  width: min(420px, 90vw);
+  padding: 28px 24px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+  position: relative;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.oauth {
+  height: 44px;
+  border-radius: 8px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid;
+}
+.google { border-color: #2563eb; }
+.naver  { border-color: #059669; }
+
+.sep {
+  display: flex;
+  align-items: center;
+  margin: 12px 0;
+}
+.sep::before, .sep::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid var(--border-1, #d1d5db);
+}
+.sep span {
+  margin: 0 8px;
+  font-size: 12px;
+  color: var(--muted-300, #6b7280);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 14px;
+}
+.input {
+  height: 42px;
+  border-radius: 8px;
+  padding: 0 12px;
+  border: 1px solid var(--border-1, #d1d5db);
+  background: #f9fafb;
+  color: #111827;
+}
+
+.formActions {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  margin-top: 10px;
+}
+.btnGhost, .btnPrimary {
+  min-width: 100px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btnGhost {
+  background: #f3f4f6;
+  border: 1px solid #d1d5db;
+  color: #111827;
+}
+.btnPrimary {
+  background: #2563eb;
+  border: 1px solid #1d4ed8;
+  color: #fff;
+}
+
+.footer {
+  text-align: center;
+  font-size: 14px;
+}
+.footer a {
+  color: #2563eb;
+  font-weight: 600;
+  margin-left: 4px;
+}
