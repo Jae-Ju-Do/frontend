@@ -1,0 +1,35 @@
+.box {
+  margin: 22px auto 10px;
+  max-width: 960px;
+  height: 220px;
+  border-radius: 14px;
+  background: var(--panel-800);
+  border: 1px dashed rgba(255,255,255,0.25);
+  display: grid;
+  place-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: border-color .2s ease, background-color .2s ease, transform .06s ease;
+}
+.box:hover { transform: translateY(-1px); }
+.over {
+  background: rgba(59, 117, 230, 0.08);
+  border-color: var(--accent-500);
+}
+
+.folderIcon {
+  width: 46px;
+  height: 34px;
+  background:
+    linear-gradient(#f9cc66, #f0b33e);
+  border-radius: 6px 6px 4px 4px;
+  box-shadow: inset 0 -3px 0 0 rgba(0,0,0,0.08);
+}
+
+.dropText {
+  font-weight: 700;
+}
+.types {
+  color: var(--muted-400);
+  font-size: 13px;
+}
