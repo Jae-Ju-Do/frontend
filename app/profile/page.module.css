@@ -1,0 +1,443 @@
+/* ===== 기본 레이아웃 ===== */
+.container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1rem;
+  color: #e5e7eb;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #f9fafb;
+}
+
+/* ===== Tabs + Actions 같은 줄 ===== */
+.tabHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.tabBar {
+  display: flex;
+  gap: 1rem;
+}
+
+.tabBtn {
+  padding: 0.5rem 1.25rem;
+  border-radius: 9999px; /* pill style */
+  border: 1px solid #374151;
+  background: #1f2937;
+  color: #9ca3af;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.tabBtn:hover {
+  background: #374151;
+  color: #d1d5db;
+}
+
+.tabBtn.active {
+  background: #2563eb;
+  color: #fff;
+  border-color: #2563eb;
+  box-shadow: 0 0 10px rgba(37, 99, 235, 0.5);
+}
+
+.tabActions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+/* ===== 섹션 ===== */
+.section {
+  background: #1f2937;
+  border: 1px solid #374151;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  margin-top: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.sectionTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #f9fafb;
+}
+
+/* ===== 폼 ===== */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.profileForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.profileRow {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.fieldBox {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.label {
+  font-size: 14px;
+  color: #cbd5e1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.input {
+  background: #374151;
+  color: #f9fafb;
+  border: 1px solid #4b5563;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #3b82f6;
+}
+
+.saveRow {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* ===== 아바타 ===== */
+.avatarBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.avatarWrapper {
+  position: relative;
+  width: 128px;
+  height: 128px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid #1e40ff;
+}
+
+.avatarImg {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 3px solid #1e40ff;
+  object-fit: cover;
+}
+
+.changeBtn {
+  background: #1f2937;
+  border: 1px solid #374151;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  color: #fff;
+}
+
+/* Hover 시 Change Overlay */
+.changeOverlay {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  background: rgba(0,0,0,0.6);
+  color: white;
+  font-size: 14px;
+  padding: 6px;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+  opacity: 0;
+}
+
+.avatarWrapper:hover .changeOverlay {
+  opacity: 1;
+}
+
+/* ===== 버튼 ===== */
+.btnPrimary {
+  background: #1e40ff;
+  color: white;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btnPrimary:hover {
+  background: #1d4ed8;
+}
+
+.btnSecondary {
+  background: #1f2937;
+  border: 1px solid #374151;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btnSecondary:hover {
+  background: #374151;
+}
+
+.btnDanger {
+  background: #ef4444;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.btnDanger:hover {
+  background: #dc2626;
+}
+
+.btnGhost {
+  background: #374151;
+  color: #d1d5db;
+  padding: 0.4rem 0.8rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+}
+
+.btnGhost:hover {
+  background: #4b5563;
+}
+
+.btnDelete {
+  background: #ef4444;
+  color: white;
+  font-weight: 500;
+  padding: 0.4rem 0.8rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btnDelete:hover {
+  background: #dc2626;
+}
+
+/* ===== API Key 리스트 ===== */
+.apiList {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.apiItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #1f2937;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  color: #f9fafb;
+}
+
+.apiInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.statusBadge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.25rem 0.6rem;
+  border-radius: 9999px;
+}
+
+.active {
+  background: #10b981;
+  color: white;
+}
+
+.expired {
+  background: #ef4444;
+  color: white;
+}
+
+.keyName {
+  font-weight: 500;
+}
+
+.apiMeta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.8rem;
+  color: #d1d5db;
+}
+
+/* ===== 모달 ===== */
+.modalBackdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.modal {
+  background: #1f2937;
+  color: #fff;
+  padding: 2rem;
+  border-radius: 0.75rem;
+  width: 400px;
+  max-width: 90%;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.modalTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.inputCentered {
+  width: 100%;
+  padding: 0.6rem;
+  border-radius: 0.5rem;
+  border: 1px solid #374151;
+  margin: 0.75rem 0;
+  background: #111827;
+  color: #f9fafb;
+  text-align: center;
+}
+
+.expiryOptionsCentered {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.expiryBtn {
+  padding: 0.5rem 1rem;
+  border: 1px solid #374151;
+  border-radius: 9999px;
+  background: #1f2937;
+  color: #d1d5db;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.expiryBtn:hover {
+  background: #374151;
+}
+
+.expiryBtn.active {
+  background: #2563eb;
+  color: #fff;
+  border-color: #2563eb;
+}
+
+.dateWrapperCentered {
+  margin: 1rem 0;
+}
+
+.expiryPreview {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: #9ca3af;
+  text-align: center;
+}
+
+.modalActionsCentered {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.keyBox {
+  background: #111827;
+  border: 1px dashed #4b5563;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  margin: 1rem 0;
+  font-size: 0.95rem;
+}
+
+.warningBox {
+  margin-top: 1rem;
+  background: #fee2e2;
+  color: #991b1b;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+/* ===== 인증 박스 ===== */
+/* ===== Auth Box (비밀번호 확인 화면) ===== */
+.authBox {
+  background: #1f2937;
+  border: 1px solid #374151;
+  border-radius: 0.75rem;
+  padding: 2rem;
+  margin-top: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+
+  /* 🔹 section과 동일하게 중앙/너비 설정 */
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.authTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #f9fafb;
+}
+
+.authDesc {
+  font-size: 0.95rem;
+  color: #9ca3af;
+  margin-bottom: 1rem;
+}
+
