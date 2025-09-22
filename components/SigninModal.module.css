@@ -45,8 +45,30 @@
   gap: 8px;
   border: 1px solid;
 }
-.google { border-color: #2563eb; }
-.naver  { border-color: #059669; }
+
+/* 구글 버튼 */
+.google {
+  border-color: #4285F4;     /* Google Blue */
+  background: #4285F4;
+  color: #fff;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+.google:hover {
+  background: #3367D6;       /* 진한 Google Blue */
+  transform: translateY(-2px); /* 살짝 올라가는 효과 */
+}
+
+/* 네이버 버튼 */
+.naver {
+  border-color: #03C75A;     /* Naver Green */
+  background: #03C75A;
+  color: #fff;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+.naver:hover {
+  background: #02A94A;       /* 진한 Naver Green */
+  transform: translateY(-2px);
+}
 
 /* 구분선 */
 .sep {
@@ -121,3 +143,14 @@
   font-weight: 600;
   margin-left: 4px;
 }
+
+.linkLike {
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  color: var(--primary, #1E40FF);
+  text-decoration: underline;
+  cursor: pointer;
+}
+.linkLike:hover { opacity: .85; }

@@ -2,7 +2,6 @@
 
 import { useRef } from "react";
 import styles from "./page.module.css";
-import Navbar from "../../components/Navbar";
 
 export default function DocumentPage() {
   const sectionRefs = {
@@ -19,7 +18,6 @@ export default function DocumentPage() {
 
   return (
     <>
-      <Navbar />
       <div className={styles.container}>
         <aside className={styles.sidebar}>
           <ul>

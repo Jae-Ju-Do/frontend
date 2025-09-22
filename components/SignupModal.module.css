@@ -45,8 +45,29 @@
   gap: 8px;
   border: 1px solid;
 }
-.google { border-color: #2563eb; }
-.naver  { border-color: #059669; }
+/* 구글 버튼 */
+.google {
+  border-color: #4285F4;     /* Google Blue */
+  background: #4285F4;
+  color: #fff;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+.google:hover {
+  background: #3367D6;       /* 진한 Google Blue */
+  transform: translateY(-2px); /* 살짝 올라가는 효과 */
+}
+
+/* 네이버 버튼 */
+.naver {
+  border-color: #03C75A;     /* Naver Green */
+  background: #03C75A;
+  color: #fff;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+.naver:hover {
+  background: #02A94A;       /* 진한 Naver Green */
+  transform: translateY(-2px);
+}
 
 .sep {
   display: flex;
@@ -76,13 +97,23 @@
   font-size: 14px;
 }
 .input {
-  height: 42px;
-  border-radius: 8px;
-  padding: 0 12px;
-  border: 1px solid var(--border-1, #d1d5db);
-  background: #f9fafb;
-  color: #111827;
+  width: 100%;
+  height: 48px;
+  font-size: 1rem;
+  padding: 0 0.75rem;
+  border: 1px solid #334155;   /* 테두리: slate-700 */
+  border-radius: 0.5rem;
+  background: #1f2937;         /* 배경: slate-800 */
+  color: #f9fafb;              /* 글자색: 거의 흰색 */
+  box-sizing: border-box;
 }
+
+.input::placeholder {
+  color: #9ca3af;              /* placeholder: gray-400 */
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
 
 .formActions {
   display: flex;
@@ -97,17 +128,28 @@
   font-weight: 600;
   cursor: pointer;
 }
-.btnGhost {
-  background: #f3f4f6;
-  border: 1px solid #d1d5db;
-  color: #111827;
-}
+/* Sign Up 버튼 (파란색으로 통일) */
 .btnPrimary {
-  background: #2563eb;
+  background: #1e40ff;
   border: 1px solid #1d4ed8;
   color: #fff;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+.btnPrimary:hover {
+  background: #1d4ed8;
+  transform: translateY(-2px);
 }
 
+/* Cancel 버튼 (Sign In과 동일한 다크 톤) */
+.btnGhost {
+  background: #1f2937;
+  border: 1px solid #374151;
+  color: #fff;
+  transition: background 0.2s ease;
+}
+.btnGhost:hover {
+  background: #374151;
+}
 .footer {
   text-align: center;
   font-size: 14px;
@@ -116,4 +158,115 @@
   color: #2563eb;
   font-weight: 600;
   margin-left: 4px;
+}
+
+
+.linkLike {
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  color: var(--primary, #1E40FF);
+  text-decoration: underline;
+  cursor: pointer;
+}
+.linkLike:hover { opacity: .85; }
+
+.inline {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.iconBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #6b7280; /* gray-500 */
+  display: flex;
+  align-items: center;
+}
+.iconBtn:hover {
+  color: #111827; /* gray-900 */
+}
+
+.verificationBox {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+.success {
+  color: #34d399; /* 초록색 */
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+.error {
+  color: #f87171;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+}
+.btnSecondary {
+  background: #f3f4f6;      /* gray-100 */
+  color: #111827;           /* gray-900 */
+  padding: 0.4rem 0.8rem;
+  border-radius: 0.5rem;
+  border: 1px solid #d1d5db;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btnSecondary:hover {
+  background: #e5e7eb;      /* gray-200 */
+}
+
+.inputGrow {
+  flex-grow: 1; /* 이메일 입력 칸 확장 */
+}
+
+.inputLg {
+  width: 100%;        /* 끝까지 차지 */
+  height: 48px;       /* 크기 키움 */
+  font-size: 1rem;
+  padding-right: 2.5rem; /* 아이콘 들어갈 공간 확보 */
+  box-sizing: border-box;
+}
+
+.inputWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.iconBtnInside {
+  position: absolute;
+  top: 50%;
+  right: 0.75rem;     /* input 안쪽 오른쪽 */
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #6b7280;     /* gray-500 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.iconBtnInside:hover {
+  color: #111827;
+}
+
+.btnSend {
+  background: #e5e7eb; 
+  color: #111827; 
+  padding: 0.4rem 0.8rem;
+  border-radius: 0.5rem;
+  border: 1px solid #d1d5db;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btnSend:hover {
+  background: #d1d5db;
 }

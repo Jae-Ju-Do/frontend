@@ -1,7 +1,6 @@
 "use client";
 import styles from "./page.module.css";
 import { useState, useEffect } from "react";
-import Navbar from "../../components/Navbar";
 import { useRouter } from "next/navigation";
 
 export default function ProfilePage() {
@@ -137,11 +136,9 @@ export default function ProfilePage() {
 
   return (
     <>
-      <Navbar />
       <div className={styles.container}>
         <h1 className={styles.title}>Profile</h1>
 
-        {/* ✅ 인증 여부에 따라 상단 버튼 다르게 */}
         <div className={styles.tabHeader}>
           <div className={styles.tabBar}>
             {authenticated && (

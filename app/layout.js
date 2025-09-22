@@ -1,6 +1,7 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
 import { cookies } from "next/headers";
+import Navbar from "../components/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -32,6 +33,7 @@ export default async function RootLayout({ children }) {
           }}
         />
       </head>
+      <Navbar/>
       <body className={inter.className}>{children}</body>
     </html>
   );
