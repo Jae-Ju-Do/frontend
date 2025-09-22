@@ -3,9 +3,14 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import styles from "./SigninModal.module.css";
+import { Signin } from "../function/Signin";
 
-export default function SigninModal({ open, onClose }) {
+export default function SigninModal({ open, onClose, onSwitchToSignup }) {
   const [mounted, setMounted] = useState(false);
+
+  const [userId, setUserId] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   useEffect(() => setMounted(true), []);
 
@@ -24,45 +29,93 @@ export default function SigninModal({ open, onClose }) {
 
   const stop = (e) => e.stopPropagation();
 
-  const handleSignIn = (e) => {
+  const HandleLogin = (e) => {
     e.preventDefault();
-    console.log("로그인 버튼 눌림 ✅");
-    onClose();
+    setError("");
+
+    Signin(userId, password).then((res) => {
+      if(res.success) {
+        alert("로그인 성공 ✅");
+        onClose();
+        window.location.href = "/";
+      } else {
+        setError(res.error?.message || "Login failed. Please try again.");
+      }
+    });
+
+
+    // // ✅ 하드코딩된 로그인 로직 (데모용)
+    // if (userId === "test" && password === "test") {
+    //   const JWT = "test"; // 데모용 JWT
+
+    //   localStorage.setItem("accessToken", JWT);
+    //   localStorage.setItem("user", JSON.stringify({ userId }));
+
+    //   document.cookie = `accessToken=${JWT}; path=/; max-age=3600; secure; samesite=strict`;
+
+    //   console.log("로그인 성공 ✅", { userId, token: JWT });
+    //   alert("로그인 성공 ✅");
+
+    //   onClose();
+    //   window.location.href = "/";
+    // } else {
+    //   console.log("로그인 실패 ❌");
+    //   setError("Invalid userId or password. Try 'test' / 'test'.");
+    // }
   };
 
   return createPortal(
     <div className={styles.backdrop} onClick={onClose} role="dialog" aria-modal="true">
       <div className={styles.modal} onClick={stop}>
         <h3 id="auth-title" className={styles.title}>Sign In</h3>
-
-        <div className={styles.sep}><span>or</span></div>
-
-        <form className={styles.form} onSubmit={handleSignIn}>
+        <form className={styles.form} onSubmit={HandleLogin}>
           <label className={styles.label}>
-            Email
-            <input className={styles.input} type="email" placeholder="Enter your email" required />
+            ID
+            <input
+              className={styles.input}
+              type="text"
+              placeholder="Enter your ID"
+              value={userId}
+              onChange={(e) => setUserId(e.target.value)}
+              required
+            />
           </label>
           <label className={styles.label}>
             Password
-            <input className={styles.input} type="password" placeholder="Enter your password" required />
+            <input
+              className={styles.input}
+              type="password"
+              placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
           </label>
+
+          {error && <p className={styles.error}>{error}</p>}
+
           <div className={styles.formActions}>
             <button type="button" className={styles.btnGhost} onClick={onClose}>Cancel</button>
             <button type="submit" className={styles.btnPrimary}>Sign In</button>
           </div>
         </form>
 
+        <div className={styles.sep}><span>or</span></div>
+
         <div className={styles.stack}>
           <button className={`${styles.oauth} ${styles.google}`}>
-            <span className={styles.icon}>🌐</span> Continue with Google
+            Google
           </button>
           <button className={`${styles.oauth} ${styles.naver}`}>
-            <span className={styles.icon}>N</span> Continue with Naver
+            NAVER
           </button>
         </div>
 
         <p className={styles.footer}>
-          Don’t have an account? <a href="/signup">Sign up</a>
+          Don’t have an account?{" "}
+          <button type="button" className={styles.linkLike} onClick={() => onSwitchToSignup?.()}>
+            Sign Up
+          </button>
         </p>
       </div>
     </div>,

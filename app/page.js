@@ -2,13 +2,11 @@
 
 import Link from "next/link";
 import styles from "./page.module.css";
-import Navbar from "../components/Navbar";
 import Dropzone from "../components/Dropzone";
 
 export default function Home() {
   return (
     <>
-      <Navbar />
       <main className={styles.main}>
         <section className={styles.hero}>
           <h1 className={styles.logo}>jaejudo</h1>

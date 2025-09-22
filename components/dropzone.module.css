@@ -1,17 +1,23 @@
 .box {
   margin: 22px auto 10px;
   max-width: 960px;
-  height: 220px;
+  height: 260px;
   border-radius: 14px;
   background: var(--panel-800);
   border: 1px dashed rgba(255,255,255,0.25);
-  display: grid;
-  place-items: center;
+
+  display: flex;
+  flex-direction: column;   /* 세로로 아이콘/텍스트 정렬 */
+  align-items: center;      /* 가로 중앙 */
+  justify-content: center;  /* ✅ 세로 중앙 */
+  
+  padding: 16px;
   gap: 10px;
   cursor: pointer;
   transition: border-color .2s ease, background-color .2s ease, transform .06s ease;
 }
 .box:hover { transform: translateY(-1px); }
+
 .over {
   background: rgba(59, 117, 230, 0.08);
   border-color: var(--accent-500);
@@ -20,8 +26,7 @@
 .folderIcon {
   width: 46px;
   height: 34px;
-  background:
-    linear-gradient(#f9cc66, #f0b33e);
+  background: linear-gradient(#f9cc66, #f0b33e);
   border-radius: 6px 6px 4px 4px;
   box-shadow: inset 0 -3px 0 0 rgba(0,0,0,0.08);
 }
@@ -29,7 +34,51 @@
 .dropText {
   font-weight: 700;
 }
+
 .types {
   color: var(--muted-400);
   font-size: 13px;
+}
+
+/* ✅ 파일 리스트 영역 */
+.fileList {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  overflow-x: auto;       /* ✅ 가로 스크롤 유지 */
+  overflow-y: hidden;
+  padding: 8px 0;
+  list-style: none;
+  margin: 0;
+  max-width: 100%;
+  scrollbar-width: none;      /* ✅ Firefox에서 스크롤바 제거 */
+  -ms-overflow-style: none;   /* ✅ IE/Edge에서 스크롤바 제거 */
+}
+
+.fileList::-webkit-scrollbar {
+  display: none;              /* ✅ Chrome, Safari에서 스크롤바 제거 */
+}
+
+
+/* ✅ 개별 파일 아이템 */
+.fileItem {
+  display: flex;
+  flex-direction: column; /* 이미지 위, 텍스트 아래 */
+  align-items: center;
+  min-width: 160px;       /* 아이콘 크기에 맞춤 */
+  text-align: center;
+  flex-shrink: 0;         /* 줄어들지 않음 */
+}
+
+.fileIcon {
+  width: auto;   /* ✅ 이미지 크게 */
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.fileName {
+  margin-top: 8px;
+  font-size: 0.95rem;
+  color: var(--text);
+  white-space: nowrap;
 }
