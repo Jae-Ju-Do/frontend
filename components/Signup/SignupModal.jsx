@@ -11,7 +11,7 @@ import FormActions from "./FormActions";
 import OAuthButtons from "./OAuthButtons";
 
 import { SendVerificationCodeHandler } from "../../function/Signup/SendVerificationCodeHandler";
-import { VerifyCodeHandler } from "../../function/Signup/verifyCodeHandler";
+import { VerifyCodeHandler } from "../../../function/Signup/VerifyCodeHandler";
 import { SignupHandler } from "../../function/Signup/SignupHandler";
 
 export default function SignupModal({ open, onClose, onSwitchToSignin }) {
