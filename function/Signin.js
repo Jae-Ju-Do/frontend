@@ -2,19 +2,18 @@
 const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
 // const SERVER_URL = ""
 
-export async function Signin(userId, password){
+export async function Signin(username, password){
     try {
       const response = await fetch(`${SERVER_URL}/api/auth/login`, {
         method: "POST",
         headers: {"Content-Type": "application/JSON"},
-        body: JSON.stringify({userId, password}),
+        body: JSON.stringify({username, password}),
       });
       
       const data = await response.json();
-      if(response.ok && data.code === "200") {
-        console.log("로그인 성공 ✅", data);
+      if(response.ok) {
         localStorage.setItem("accessToken", data.accessToken);
-        localStorage.setItem("user", JSON.stringify({ userId }));
+        console.log("로그인 성공 ✅");
         return { success: true };
       }
 

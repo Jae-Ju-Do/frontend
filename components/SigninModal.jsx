@@ -39,29 +39,11 @@ export default function SigninModal({ open, onClose, onSwitchToSignup }) {
         onClose();
         window.location.href = "/";
       } else {
+        console.log(res.error);
         setError(res.error?.message || "Login failed. Please try again.");
       }
     });
 
-
-    // // ✅ 하드코딩된 로그인 로직 (데모용)
-    // if (userId === "test" && password === "test") {
-    //   const JWT = "test"; // 데모용 JWT
-
-    //   localStorage.setItem("accessToken", JWT);
-    //   localStorage.setItem("user", JSON.stringify({ userId }));
-
-    //   document.cookie = `accessToken=${JWT}; path=/; max-age=3600; secure; samesite=strict`;
-
-    //   console.log("로그인 성공 ✅", { userId, token: JWT });
-    //   alert("로그인 성공 ✅");
-
-    //   onClose();
-    //   window.location.href = "/";
-    // } else {
-    //   console.log("로그인 실패 ❌");
-    //   setError("Invalid userId or password. Try 'test' / 'test'.");
-    // }
   };
 
   return createPortal(

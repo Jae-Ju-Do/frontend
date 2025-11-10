@@ -1,15 +1,10 @@
-const SERVER_URL = process.env.SERVER_URL;
+const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
 
 export async function ReissueToken() {
   try {
-    const accessToken = localStorage.getItem("accessToken");
-
     const response = await fetch(`${SERVER_URL}/api/auth/jwt/reissue`, {
       method: "POST",
-      headers: { 
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${accessToken}`,
-      },
+      headers: { "Content-Type": "application/json" },
       credentials: "include",
     });
 

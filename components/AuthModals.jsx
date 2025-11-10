@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useEffect } from "react";
 import SigninModal from "./SigninModal";
-import SignupModal from "./SignupModal";
+import SignupModal from "./Signup/SignupModal";
 
 export default function AuthModals({ trigger }) {
   const [which, setWhich] = useState("none");

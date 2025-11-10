@@ -7,7 +7,8 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: "jaejudo - Malware Analysis Platform",
-  description: "Advanced malware analysis platform for cybersecurity professionals",
+  description:
+    "Advanced malware analysis platform for cybersecurity professionals",
 };
 
 export default async function RootLayout({ children }) {
@@ -33,8 +34,10 @@ export default async function RootLayout({ children }) {
           }}
         />
       </head>
-      <Navbar/>
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <Navbar />
+        {children}
+      </body>
     </html>
   );
 }

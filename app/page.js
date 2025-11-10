@@ -1,83 +1,101 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
 import styles from "./page.module.css";
 import Dropzone from "../components/Dropzone";
+import { UploadAPI } from "../function/UploadAPI";
+
+const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
+
+async function GetJobStatus(jobId) {
+  const res = await fetch(`${SERVER_URL}/api/analysis/status/${jobId}`);
+  const data = await res.json();
+  return res.ok ? { success: true, result: data } : { success: false, error: data.message };
+}
 
 export default function Home() {
-  return (
-    <>
-      <main className={styles.main}>
-        <section className={styles.hero}>
-          <h1 className={styles.logo}>jaejudo</h1>
-          <p className={styles.subtitle}>Malware Analysis Platform</p>
-          <p className={styles.note}>
-            Upload with or without login — <span className={styles.em}>sign in</span> to keep your report history.
-          </p>
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [analyzing, setAnalyzing] = useState(false);
+  const [message, setMessage] = useState("");
+  const [downloadUrl, setDownloadUrl] = useState(null);
 
-          <Dropzone />
+  async function handleUpload() {
+    if (!selectedFile) return alert("파일을 선택하세요.");
+    setMessage("📤 업로드 중...");
+    setAnalyzing(true);
 
-          <div className={styles.ctaRow}>
-            <button className={styles.btnGhost}>Guest Upload</button>
-            <Link href="/signin" className={styles.btnPrimary}>Sign in for history</Link>
-          </div>
-        </section>
+    try {
+      const token = isLoggedIn ? localStorage.getItem("accessToken") : null;
+      const res = await UploadAPI(selectedFile, token);
+      if (!res.success) throw new Error(res.error);
 
-        <section className={styles.features}>
-          <FeatureCard
-            icon={<MagnifierIcon />}
-            title="Static & Dynamic Analysis"
-            desc="Comprehensive malware analysis with both static signatures and dynamic behavior detection."
-          />
-          <FeatureCard
-            icon={<ShieldIcon />}
-            title="Threat Intel (VT, YARA)"
-            desc="Integration with VirusTotal, YARA rules, and global threat intelligence feeds."
-          />
-          <FeatureCard
-            icon={<DocIcon />}
-            title="Report Export (PDF/Word)"
-            desc="Export detailed analysis reports in PDF or Word format for sharing and documentation."
-          />
-        </section>
-      </main>
-      <footer className={styles.footer}>
-        <span>© {new Date().getFullYear()} jaejudo</span>
-      </footer>
-    </>
-  );
-}
+      const { jobId, message: msg } = res.result;
+      setMessage(`${msg} (Job ID: ${jobId})`);
+      pollJobStatus(jobId);
+    } catch (err) {
+      console.error("업로드 실패:", err);
+      setMessage("❌ 업로드 실패: " + err.message);
+      setAnalyzing(false);
+    }
+  }
 
-function FeatureCard({ icon, title, desc }) {
-  return (
-    <div className={styles.card}>
-      <div className={styles.cardIcon}>{icon}</div>
-      <div className={styles.cardTitle}>{title}</div>
-      <div className={styles.cardDesc}>{desc}</div>
-    </div>
-  );
-}
+  async function pollJobStatus(jobId) {
+    const interval = setInterval(async () => {
+      const res = await GetJobStatus(jobId);
+      if (!res.success) {
+        setMessage("❌ 상태 조회 실패");
+        clearInterval(interval);
+        setAnalyzing(false);
+        return;
+      }
 
-/* --- Simple inline SVG icons --- */
-function MagnifierIcon() {
+      const { status, message: msg, downloadUrl, errorMessage } = res.result;
+      setMessage(msg);
+
+      if (status === "COMPLETED") {
+        setDownloadUrl(downloadUrl);
+        setMessage("✅ 분석 완료 — 보고서 확인 가능");
+        setAnalyzing(false);
+        clearInterval(interval);
+      } else if (status === "FAILED") {
+        setMessage(`❌ 분석 실패: ${errorMessage}`);
+        setAnalyzing(false);
+        clearInterval(interval);
+      }
+    }, 4000);
+  }
+
   return (
-    <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden>
-      <path fill="currentColor" d="M11 4a7 7 0 1 1 0 14a7 7 0 0 1 0-14m0-2a9 9 0 0 0-7.03 14.72L2.3 20.4a1 1 0 1 0 1.4 1.42l1.66-1.66A9 9 0 1 0 11 2z"/>
-    </svg>
-  );
-}
-function ShieldIcon() {
-  return (
-    <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden>
-      <path fill="currentColor" d="M12 2l7 4v6c0 4.97-3.05 9.24-7 10c-3.95-.76-7-5.03-7-10V6z"/>
-    </svg>
-  );
-}
-function DocIcon() {
-  return (
-    <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden>
-      <path fill="currentColor" d="M14 2H6a2 2 0 0 0-2 2v16c0 1.1.9 2 2 2h12a2 2 0 0 0 2-2V8z"/>
-      <path fill="currentColor" d="M14 2v6h6"/>
-    </svg>
+    <main className={styles.main}>
+      <section className={styles.hero}>
+        <h1 className={styles.logo}>jaejudo</h1>
+        <p className={styles.subtitle}>Malware Analysis Platform</p>
+
+        <Dropzone
+          onFileSelect={setSelectedFile}
+          analyzing={analyzing}
+          message={message}
+          downloadUrl={downloadUrl}
+        />
+
+        <div className={styles.ctaRow}>
+          <button
+            onClick={handleUpload}
+            className={styles.btnGhost}
+            disabled={!selectedFile || analyzing}
+          >
+            {analyzing ? "분석 중..." : isLoggedIn ? "Upload" : "Guest Upload"}
+          </button>
+
+          {!isLoggedIn && (
+            <Link href="/signin" className={styles.btnPrimary}>
+              Sign in for history
+            </Link>
+          )}
+        </div>
+      </section>
+    </main>
   );
 }
