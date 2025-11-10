@@ -10,9 +10,9 @@ import ConfirmPasswordInput from "./ConfirmPasswdInput";
 import FormActions from "./FormActions";
 import OAuthButtons from "./OAuthButtons";
 
-import { SendVerificationCodeHandler } from "../../../function/Signup/SendVerificationCodeHandler";
-import { VerifyCodeHandler } from "../../../function/Signup/VerifyCodeHandler";
-import { SignupHandler } from "../../../function/Signup/SignupHandler";
+import { SignupHandler } from "../../function/Signup/SignupHandler";
+import { SendVerificationCodeHandler } from "../../function/Signup/SendVerificationCodeHandler";
+import { VerifyCodeHandler } from "../../function/Signup/VerifyCodeHandler";
 
 export default function SignupModal({ open, onClose, onSwitchToSignin }) {
   const [mounted, setMounted] = useState(false);
