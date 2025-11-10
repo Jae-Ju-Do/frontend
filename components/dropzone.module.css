@@ -82,3 +82,262 @@
   color: var(--text);
   white-space: nowrap;
 }
+/* 🔄 분석 진행 중 로더 */
+.loaderContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 160px;
+  text-align: center;
+}
+
+.spinner {
+  border: 6px solid rgba(255, 255, 255, 0.2);
+  border-top: 6px solid #3b82f6;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.progressText {
+  font-size: 0.95rem;
+  color: #e2e8f0;
+  max-width: 260px;
+  line-height: 1.5;
+}
+
+.spinnerSuccess {
+  border: 6px solid rgba(255, 255, 255, 0.2);
+  border-top: 6px solid #22c55e;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+.reportBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  text-align: center;
+  padding: 1rem 0;
+}
+
+.pdfIcon {
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border-radius: 10px;
+}
+
+.pdfIcon:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.box {
+  width: 800px;
+  height: 280px;
+  border: 1.5px dashed rgba(255, 255, 255, 0.25);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.over {
+  border-color: #3b82f6;
+  box-shadow: 0 0 15px #3b82f6;
+}
+
+.folderIcon {
+  width: 60px;
+  height: 60px;
+  background: url("/folder_white.png") no-repeat center / contain;
+  opacity: 0.8;
+}
+
+.dropText {
+  margin-top: 16px;
+  color: #ddd;
+  font-size: 1rem;
+}
+
+.types {
+  margin-top: 6px;
+  font-size: 0.8rem;
+  color: #777;
+}
+
+.selectedBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #ccc;
+}
+
+.fileIcon {
+  margin-bottom: 10px;
+}
+
+.fileName {
+  font-size: 0.9rem;
+  text-align: center;
+  color: #aaa;
+  word-break: break-all;
+  max-width: 90%;
+}
+
+.loaderContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* ✅ 부모는 중앙 정렬만 담당 */
+  width: 150px;
+  height: 150px;
+}
+
+.spinnerImg {
+  width: 150px;
+  height: 150px;
+  opacity: 0.9;
+  filter: drop-shadow(0 0 12px #3b82f6);
+  animation: spin 2s linear infinite; /* ✅ 자식만 회전 */
+  transform-origin: center center;     /* ✅ 중심 회전 */
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+
+
+.progressText {
+  margin-top: 16px;
+  color: #cfcfcf;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.reportBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pdfIcon {
+  filter: drop-shadow(0 0 8px #3b82f6);
+  transition: transform 0.3s ease;
+}
+
+.pdfIcon:hover {
+  transform: scale(1.1);
+}
+
+.box {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 2px dashed #333;
+  border-radius: 12px;
+  padding: 40px;
+  width: 100%;
+  height: 320px;
+  transition: all 0.25s ease;
+  background: rgba(20, 20, 20, 0.6);
+}
+
+.loaderContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  position: relative;
+}
+
+.loaderContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  position: relative;
+}
+
+/* ✅ spinner를 직접 CSS로 그리기 — 이미지 없이 */
+.spinner {
+  width: 100px;
+  height: 100px;
+  border: 8px solid rgba(255, 255, 255, 0.1);
+  border-top: 8px solid #3b82f6;
+  border-radius: 50%;
+  animation: spin 1.2s linear infinite;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* 회전 애니메이션 */
+@keyframes spin {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* 로그 텍스트 */
+.progressText {
+  position: absolute;
+  top: calc(50% + 80px);
+  font-size: 15px;
+  color: #ccc;
+  text-align: center;
+}
+
+.progressText {
+  position: absolute;
+  top: calc(50% + 80px);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px; /* 줄 간격 */
+  text-align: center;
+  line-height: 1.4;
+  font-size: 15px;
+  color: #e5e7eb; /* 좀 더 부드러운 흰색 */
+  font-weight: 400;
+  letter-spacing: 0.2px;
+}

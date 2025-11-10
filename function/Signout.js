@@ -17,8 +17,6 @@ export async function Signout() {
     });
 
     if (response.ok) {
-      localStorage.removeItem("accessToken");
-      localStorage.removeItem("email");
       return { success: true };
     }
 

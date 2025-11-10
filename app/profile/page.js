@@ -2,6 +2,10 @@
 import styles from "./page.module.css";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { Signout } from "../../function/Signout"
+import { CreateAPI } from "../../function/API/CreateAPI";
+import { DeleteAPI } from "../../function/API/DeleteAPI"
+import { GetAPI } from "../../function/API/GetAPI";
 
 export default function ProfilePage() {
   const router = useRouter();
@@ -22,7 +26,7 @@ export default function ProfilePage() {
 
   // 🔹 유저 상태
   const [user, setUser] = useState({ email: "test", password: "1234" }); // 데모
-  const [avatar, setAvatar] = useState("/nomal.png");
+  const [avatar, setAvatar] = useState("/nomal.jpg");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [activeTab, setActiveTab] = useState("profile");
@@ -38,16 +42,6 @@ export default function ProfilePage() {
   const [generatedKey, setGeneratedKey] = useState("");
   const [expiryOption, setExpiryOption] = useState("30");
   const [customDate, setCustomDate] = useState("");
-
-  useEffect(() => {
-    setApiKeys([
-      {
-        name: "Default Key",
-        createdAt: new Date().toISOString(),
-        expiresAt: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
-      },
-    ]);
-  }, []);
 
   // 🔹 프로필 저장
   const handleSaveProfile = (e) => {
@@ -76,20 +70,40 @@ export default function ProfilePage() {
   // 🔹 비밀번호 확인
   const handleAuthCheck = (e) => {
     e.preventDefault();
-    if (enteredPassword === user.password) {
-      setAuthenticated(true);
-    } else {
-      alert("비밀번호가 올바르지 않습니다 ❌");
+    // if (enteredPassword === user.password) {
+    setAuthenticated(true);
+    // } else {
+      // alert("비밀번호가 올바르지 않습니다 ❌");
+    // }
+  };
+
+  // 탭 전환 함수
+  const switchTab = async (tab) => {
+    setActiveTab(tab);
+
+    if (tab === "apikeys") {
+      const accessToken = localStorage.getItem("accessToken");
+      const res = await GetAPI(accessToken);
+
+      if (res.success && Array.isArray(res.result)) {
+        setApiKeys(res.result);
+      } else {
+        alert("API 키 목록을 불러오지 못했습니다 ❌");
+        console.log(res.error);
+        setApiKeys([]);
+      }
     }
   };
 
+
   // 🔹 로그아웃
   const handleLogout = () => {
-    localStorage.removeItem("user");
+    Signout();
     setAuthenticated(false);
-    setEnteredPassword("");
     alert("로그아웃 되었습니다 ✅");
-    router.push("/"); // 홈으로 리다이렉트
+    localStorage.removeItem("accessToken");
+    window.dispatchEvent(new Event("logout"));
+    router.push("/");
   };
 
   // 🔹 API Key 생성
@@ -105,33 +119,46 @@ export default function ProfilePage() {
     setShowModal(true);
   };
 
-  const handleCreateApiKey = () => {
+  const handleCreateApiKey = async () => {
     if (!newApiName.trim()) {
       alert("API 이름을 입력해주세요.");
       return;
     }
 
-    let expiresAt;
+    let validDate;
     if (expiryOption === "custom") {
       if (!customDate) {
         alert("만료일을 선택해주세요.");
         return;
       }
-      expiresAt = new Date(customDate).toISOString();
-    } else {
-      const days = parseInt(expiryOption, 10);
       const today = new Date();
-      today.setDate(today.getDate() + days);
-      expiresAt = today.toISOString();
+      const endDate = new Date(customDate);
+      const diffTime = endDate.getTime() - today.getTime();
+      validDate = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    } else {
+      validDate = parseInt(expiryOption, 10);
     }
 
-    const newKey = "key_" + Math.random().toString(36).substring(2, 12);
-    setGeneratedKey(newKey);
+    const accessToken = localStorage.getItem("accessToken");
+    const res = await CreateAPI(accessToken, newApiName, validDate);
+    
+    if (res.success && res.result) {
+      alert("API 키 생성 성공 ✅");
 
-    setApiKeys((prev) => [
-      ...prev,
-      { name: newApiName, createdAt: new Date().toISOString(), expiresAt },
-    ]);
+      setApiKeys((prev) => [
+        ...prev,
+        {
+          name: res.result.name,
+          createdAt: res.result.createdAt,
+          expiresAt: res.result.expiresAt,
+        },
+      ]);
+    } else if (res.error === "중복되는 api") {
+      alert("이미 존재하는 API 이름입니다 ❌");
+    } else {
+      alert("API 키 생성 실패 ❌");
+      console.log(res.error);
+    }
   };
 
   return (
@@ -145,13 +172,13 @@ export default function ProfilePage() {
               <>
                 <button
                   className={`${styles.tabBtn} ${activeTab === "profile" ? styles.active : ""}`}
-                  onClick={() => setActiveTab("profile")}
+                  onClick={() => switchTab("profile")}
                 >
                   Profile Settings
                 </button>
                 <button
                   className={`${styles.tabBtn} ${activeTab === "apikeys" ? styles.active : ""}`}
-                  onClick={() => setActiveTab("apikeys")}
+                  onClick={() => switchTab("apikeys")}
                 >
                   API Keys
                 </button>
@@ -256,9 +283,25 @@ export default function ProfilePage() {
                           <span className={styles.keyName}>{item.name}</span>
                         </div>
                         <div className={styles.apiMeta}>
-                          <small>Created: {new Date(item.createdAt).toLocaleDateString("en-CA")}</small>
-                          <small>Expires: {new Date(item.expiresAt).toLocaleDateString("en-CA")}</small>
+                          <small>Valid: {new Date(item.createdAt).toLocaleDateString("en-CA")} ~ {new Date(item.expiresAt).toLocaleDateString("en-CA")}</small>
                         </div>
+                        <button
+                          className={styles.deleteBtn}
+                          onClick={async () => {
+                            const accessToken = localStorage.getItem("accessToken");
+                            const res = await DeleteAPI(accessToken, item.name);
+                            if (res.success) {
+                              alert("API 키 삭제 완료 ✅");
+                              // 상태 업데이트 (삭제된 항목 제외)
+                              setApiKeys((prev) => prev.filter((_, idx) => idx !== i));
+                            } else {
+                              alert("API 키 삭제 실패 ❌");
+                              console.log(res.message);
+                            }
+                          }}
+                        >
+                          삭제
+                        </button>
                       </li>
                     );
                   })}

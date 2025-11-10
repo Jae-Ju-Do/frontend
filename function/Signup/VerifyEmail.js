@@ -1,4 +1,4 @@
-const SERVER_URL = process.env.SERVER_URL;
+const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
 
 export async function VerifyEmail(email, key) {
   try {
@@ -8,14 +8,12 @@ export async function VerifyEmail(email, key) {
       body: JSON.stringify({ email, key }),
     });
 
-    const data = await response.json();
-
     if (response.ok) {
       return { success: true };
     }
 
     if (response.status === 401) {
-      return { success: false, message: "인증 실패" };
+      return { success: false, error: "인증 실패" };
     }
 
     if (response.status === 500) {
