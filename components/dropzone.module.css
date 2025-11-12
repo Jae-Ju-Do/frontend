@@ -341,3 +341,34 @@
   font-weight: 400;
   letter-spacing: 0.2px;
 }
+
+.disabled { cursor: not-allowed; opacity: 0.7; }
+
+/* ✅ 한글 문구가 글자 단위로 끊기는 현상 방지 */
+.noWrapKo {
+  word-break: keep-all;   /* CJK 단어 단위 줄바꿈 */
+  white-space: nowrap;    /* 줄바꿈 금지 */
+}
+
+/* ✅ 한 줄 유지 + 넘치면 말줄임 */
+.ellipsisOneLine {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 로더 영역이 너무 좁아 줄바꿈/깜빡임이 생기는 것 방지 */
+.loaderContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 140px;  /* 필요 시 조절 */
+}
+
+/* 이미 없다면 시각적 비활성화 */
+.disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
