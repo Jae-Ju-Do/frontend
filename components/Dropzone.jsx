@@ -4,14 +4,19 @@ import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import styles from "./dropzone.module.css";
 
-export default function Dropzone({ onFileSelect, analyzing = false, message = "", downloadUrl = null }) {
+export default function Dropzone({
+  onFileSelect,
+  analyzing = false,
+  message = "",
+  downloadUrl = null,
+}) {
   const inputRef = useRef(null);
   const [file, setFile] = useState(null);
   const [isOver, setIsOver] = useState(false);
 
   useEffect(() => {
-    if (file) onFileSelect(file);
-  }, [file]);
+    if (file) onFileSelect && onFileSelect(file);
+  }, [file, onFileSelect]);
 
   function handleFile(selected) {
     if (!selected) return;
@@ -33,11 +38,49 @@ export default function Dropzone({ onFileSelect, analyzing = false, message = ""
     }
   }
 
+  function handlePrimaryClick() {
+    // 보고서가 있으면 클릭 시 다운로드/열기
+    if (downloadUrl) {
+      const a = document.createElement("a");
+      a.href = downloadUrl;
+      a.target = "_blank";
+      a.rel = "noopener noreferrer";
+      a.setAttribute("download", "");
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      return;
+    }
+    // 보고서가 없고 분석 중이 아니면 파일 선택
+    if (!analyzing) inputRef.current?.click();
+  }
+
+  function handleKeyDown(e) {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      if (!analyzing) handlePrimaryClick();
+    }
+  }
+
+  const isDisabled = !!analyzing; // 분석 중이면 클릭/키보드 비활성
+
   return (
     <div className={styles.wrapper}>
       <div
-        className={`${styles.box} ${isOver ? styles.over : ""}`}
-        onClick={() => inputRef.current?.click()}
+        className={`${styles.box} ${isOver ? styles.over : ""} ${isDisabled ? styles.disabled : ""}`}
+        role={isDisabled ? undefined : "button"}
+        tabIndex={isDisabled ? -1 : 0}
+        aria-busy={analyzing ? "true" : "false"}
+        aria-disabled={isDisabled ? "true" : "false"}
+        aria-label={
+          downloadUrl
+            ? "분석 보고서 다운로드"
+            : analyzing
+            ? "분석 중 (클릭 불가)"
+            : "파일 드롭 또는 클릭하여 선택"
+        }
+        onClick={isDisabled ? undefined : handlePrimaryClick}
+        onKeyDown={isDisabled ? undefined : handleKeyDown}
         onDragOver={(e) => {
           e.preventDefault();
           setIsOver(true);
@@ -46,9 +89,10 @@ export default function Dropzone({ onFileSelect, analyzing = false, message = ""
         onDrop={(e) => {
           e.preventDefault();
           setIsOver(false);
-          const dropped = e.dataTransfer.files?.[0];
-          handleFile(dropped || null);
+          const dropped = e.dataTransfer.files?.[0] || null;
+          handleFile(dropped);
         }}
+        title={isDisabled ? "분석 중에는 클릭할 수 없습니다" : undefined}
       >
         <input
           ref={inputRef}
@@ -59,25 +103,38 @@ export default function Dropzone({ onFileSelect, analyzing = false, message = ""
 
         {downloadUrl ? (
           <div className={styles.reportBox}>
-            <a href={downloadUrl} target="_blank" rel="noopener noreferrer" download>
-              <Image
-                src="/pdf.png"
-                alt="PDF Report"
-                width={120}
-                height={120}
-                className={styles.pdfIcon}
-              />
-            </a>
-            <div className={styles.progressText}>📄 분석 완료 — 클릭하여 보고서 다운로드</div>
+            <Image
+              src="/pdf.png"
+              alt="PDF Report"
+              width={120}
+              height={120}
+              className={styles.pdfIcon}
+            />
+            <div className={`${styles.progressText} ${styles.noWrapKo}`}>
+              📄 분석 완료 — 클릭하여 보고서 다운로드
+            </div>
           </div>
         ) : analyzing ? (
-          <div className={styles.loaderContainer}>
-            <div className={styles.spinner}></div>
+          <div
+            className={styles.loaderContainer}
+            aria-busy="true"
+            aria-live="polite"
+            lang="ko"
+            title={message || "Ghidra 디컴파일 중"}
+          >
+            <div className={styles.spinner} role="progressbar"></div>
+            <div className={`${styles.progressText} ${styles.noWrapKo}`}>
+              {message || "Ghidra 디컴파일 중..."}
+            </div>
           </div>
         ) : !file ? (
           <>
-            <div className={styles.dropText}>Drop PE file here or click to browse</div>
-            <div className={styles.types}>Supports only .exe, .dll, .sys, .ocx</div>
+            <div className={`${styles.dropText} ${styles.noWrapKo}`}>
+              Drop PE file here or click to browse
+            </div>
+            <div className={`${styles.types} ${styles.noWrapKo}`}>
+              Supports only .exe, .dll, .sys, .ocx
+            </div>
           </>
         ) : (
           <div className={styles.selectedBox}>
@@ -88,11 +145,12 @@ export default function Dropzone({ onFileSelect, analyzing = false, message = ""
               height={100}
               className={styles.fileIcon}
             />
-            <div className={styles.fileName}>{file.name}</div>
+            <div className={`${styles.fileName} ${styles.ellipsisOneLine} ${styles.noWrapKo}`}>
+              {file.name}
+            </div>
           </div>
         )}
       </div>
-
     </div>
   );
 }
